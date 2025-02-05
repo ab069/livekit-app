@@ -1,5 +1,5 @@
 {
-  "name": "livekit-app",
+  "name": "shaheen-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,19 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.8.1",
+    "@livekit/components-styles": "^1.1.4",
+    "@livekit/krisp-noise-filter": "^0.2.16",
+    "axios": "^1.7.9",
+    "livekit-server-sdk": "^2.9.7",
+    "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.6"
+    "tinykeys": "^3.0.0",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
-    "@eslint/eslintrc": "^3"
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
