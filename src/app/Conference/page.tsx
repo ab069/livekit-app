@@ -1,26 +1,27 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setRoomName, setHq } from "../../redux/slices/conferenceSlice";
+import { RootState, AppDispatch } from "../../redux/store";
 import { v4 as uuidv4 } from "uuid";
 
 const Conference = () => {
   const router = useRouter();
-  const [roomName, setRoomName] = useState("");
-  const [region, setRegion] = useState("");
-  const [hq, setHq] = useState("");
+  const dispatch: AppDispatch = useDispatch(); // Typed dispatch
+  const { roomName, hq } = useSelector((state: RootState) => state.conference); // Typed selector
+
+  // If roomName is not set by the user, generate one
+  const roomNameToUse = roomName.trim() !== "" ? roomName : uuidv4().slice(0, 8);
 
   const handleStartCall = () => {
-    // Use user input or generate a random room ID
-    const finalRoomName = roomName.trim() !== "" ? roomName : uuidv4().slice(0, 8);
-
     // Build query params
+    dispatch(setRoomName(roomName||roomNameToUse));
     const queryParams = new URLSearchParams();
-    if (region) queryParams.append("region", region);
     if (hq) queryParams.append("hq", hq);
 
     // Navigate to the room page with parameters
-    router.push(`/room/${finalRoomName}?${queryParams.toString()}`);
+    router.push(`/room/${roomNameToUse}?${queryParams.toString()}`);
   };
 
   return (
@@ -29,25 +30,15 @@ const Conference = () => {
 
       <input
         type="text"
-        placeholder="Enter Room Name (optional)"
-        value={roomName}
-        onChange={(e) => setRoomName(e.target.value)}
+        placeholder="Enter Room Name"
+        value={roomName } // Use either the user's input or the auto-generated room name
+        onChange={(e) => dispatch(setRoomName(e.target.value))} // Dispatch the action
         className="border px-4 py-2 rounded-md w-64"
       />
 
-      <select 
-        value={region} 
-        onChange={(e) => setRegion(e.target.value)} 
-        className="border px-4 py-2 rounded-md w-64"
-      >
-        <option value="">Select Region</option>
-        <option value="us">US</option>
-        <option value="eu">EU</option>
-      </select>
-
-      <select 
-        value={hq} 
-        onChange={(e) => setHq(e.target.value)} 
+      <select
+        value={hq || ""}
+        onChange={(e) => dispatch(setHq(e.target.value))} // Dispatch the action
         className="border px-4 py-2 rounded-md w-64"
       >
         <option value="">Select HQ</option>
@@ -55,8 +46,8 @@ const Conference = () => {
         <option value="low">Low Quality</option>
       </select>
 
-      <button 
-        onClick={handleStartCall} 
+      <button
+        onClick={handleStartCall}
         className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
       >
         Start Call
