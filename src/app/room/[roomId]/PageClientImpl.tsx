@@ -3,7 +3,6 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setRoomName, setHq } from "../../../redux/slices/conferenceSlice";
-import { decodePassphrase } from "../../../../lib/client-utils";
 import { SettingsMenu } from "../../../../lib/SettingsMenu";
 import { ConnectionDetails } from "../../../../lib/types";
 import {
@@ -89,7 +88,7 @@ function VideoConferenceComponent(props: {
   };
 }) {
   const e2eePassphrase =
-    typeof window !== "undefined" && decodePassphrase(location.hash.substring(1));
+    typeof window !== "undefined" ;
 
   const worker =
     typeof window !== "undefined" &&
