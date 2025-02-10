@@ -6,7 +6,6 @@ export interface SessionProps {
   identity: string;
   audioTrack?: LocalAudioTrack;
   videoTrack?: LocalVideoTrack;
-  region?: string;
   turnServer?: RTCIceServer;
   forceRelay?: boolean;
 }

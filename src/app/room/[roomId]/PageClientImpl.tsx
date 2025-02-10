@@ -3,7 +3,7 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setRoomName, setHq } from "../../../redux/slices/conferenceSlice";
-import { SettingsMenu } from "../../../../lib/SettingsMenu";
+//import { SettingsMenu } from "../../../../lib/SettingsMenu";
 import { ConnectionDetails } from "../../../../lib/types";
 import {
   formatChatMessageLinks,
@@ -44,9 +44,7 @@ export function PageClientImpl() {
     const url = new URL(CONN_DETAILS_ENDPOINT, window.location.origin);
     url.searchParams.append("roomName", roomName);
     url.searchParams.append("participantName", values.username);
-    if (region) {
-      url.searchParams.append("region", region);
-    }
+    
 
     const connectionDetailsResp = await fetch(url.toString());
     if (!connectionDetailsResp.ok) {
